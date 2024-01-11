@@ -2,18 +2,25 @@
 import mongoose from "mongoose";
 import "dotenv/config";
 
-// Declare variables
-const port = process.env.PORT;
-const url = process.env.MONGO_URI;
+// Load environment variables from .env file using "dotenv" package
 
-// Function to connect to MongoDB and save data
+// Declare variables
+const port = process.env.PORT; // Port number obtained from environment variables
+const url = process.env.MONGO_URI; // MongoDB connection URI obtained from environment variables
+
+// Function to connect to MongoDB
 const connectDB = async function () {
   try {
-    mongoose.connect(url);
+    // Connect to MongoDB using the provided connection URI
+    await mongoose.connect(url);
+
+    // Log a success message if the connection is successful
     console.log("Connection to MongoDB successful");
   } catch (error) {
+    // Log an error message if there's an issue connecting to MongoDB
     console.error("Error connecting to MongoDB:", error.message);
   }
 };
 
+// Export the connectDB function for use in other parts of the application
 export default connectDB;
