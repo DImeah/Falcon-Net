@@ -6,12 +6,14 @@ import mongoose from "mongoose";
 import morgan from "morgan";
 import cors from "cors";
 import connectDB from "./configs/database.js"; // Import the function to connect to MongoDB
+import auth from "./routes/auth.js";
 
 // Declaring variables
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server);
 const port = process.env.PORT; // Port number obtained from environment variables
+const userAuthRouter = auth;
 
 // Middleware setup
 app.use(express.json()); // Parse JSON requests
@@ -24,6 +26,9 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
+// Use the defined router for paths starting with "/api/v1"
+app.use("/api/v1", userAuthRouter);
+
 // Start the application
 const serverApp = async () => {
   try {
@@ -33,7 +38,7 @@ const serverApp = async () => {
     // Start the Express server
     server.listen(port, () => {
       console.log(
-        `Server started at http://localhost:${port} and Connected to MongoDB`
+        `Server started at http://localhost:${port} and Connected to MongoDB Atlas Cloud`
       );
     });
   } catch (error) {
