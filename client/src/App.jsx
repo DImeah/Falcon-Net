@@ -1,10 +1,14 @@
 import "./App.css";
-import Login from "./components/Login";
+import MainContainer from "./components/main-container/MainContainer";
+import Login from "./components/login/Login";
 
 function App() {
   return (
     <>
-      <Login />
+      <div>
+        {/* <Login /> */}
+        <MainContainer />
+      </div>
     </>
   );
 }

@@ -7,6 +7,8 @@ import morgan from "morgan";
 import cors from "cors";
 import connectDB from "./configs/database.js"; // Import the function to connect to MongoDB
 import auth from "./routes/auth.js";
+import crypto from "crypto";
+import session from "express-session";
 
 // Declaring variables
 const app = express();
@@ -14,12 +16,21 @@ const server = http.createServer(app);
 const io = new Server(server);
 const port = process.env.PORT; // Port number obtained from environment variables
 const userAuthRouter = auth;
+const sessionSecret = crypto.randomBytes(32).toString("hex"); // Generate a random secret with 32 characters
 
 // Middleware setup
 app.use(express.json()); // Parse JSON requests
 app.use(express.urlencoded({ extended: true })); // Parse URL-encoded requests
 app.use(morgan("tiny")); // Use Morgan for request logging
 app.use(cors()); // Enable CORS for all routes
+app.use(
+  session({
+    // Use the express-session middleware
+    secret: sessionSecret,
+    resave: false,
+    saveUninitialized: true,
+  })
+);
 
 // Define a basic route for the root endpoint
 app.get("/", (req, res) => {

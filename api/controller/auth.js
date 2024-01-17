@@ -115,3 +115,27 @@ export async function loginUser(req, res) {
     res.status(500).json({ error: "Internal Server Error" });
   }
 }
+
+export async function logoutUser(req, res) {
+  try {
+    req.session.destroy();
+    // Clear JWT token (if using JWT)
+    const token = req.cookies.token;
+    if (token) {
+      jwt.verify(token, jwtSecretKey, (err, decoded) => {
+        if (!err) {
+          // Token is valid, you may perform additional cleanup if needed
+          // For example, you can add the token to a blacklist
+        }
+      });
+    }
+
+    // Clear the token cookie
+    res.clearCookie("token");
+
+    res.status(200).json({ message: "Logout successful." });
+  } catch (error) {
+    console.error("Error during logout:", error.message);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+}
