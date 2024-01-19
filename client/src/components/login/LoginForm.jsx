@@ -1,9 +1,10 @@
+/* eslint-disable react/prop-types */
 // LoginForm.jsx
 import React from "react";
 import { Link } from "react-router-dom";
 import "./login.css";
 
-const LoginForm = ({ handleRegisterClick }) => {
+const LoginForm = ({ handleRegisterClick, loginHandler, changeHandler }) => {
   return (
     <div className={`wrapper ${!handleRegisterClick && "active"}`}>
       <span className="bg-animate"></span>
@@ -15,12 +16,23 @@ const LoginForm = ({ handleRegisterClick }) => {
         </h2>
         <form action="#">
           <div className="input-box animation" style={{ "--i": 1, "--j": 22 }}>
-            <input type="text" required />
+            <input
+              type="text"
+              required
+              name="username"
+              onChange={changeHandler}
+            />
             <label>Username</label>
             <i className="bx bxs-user bx-tada"></i>
           </div>
           <div className="input-box animation" style={{ "--i": 2, "--j": 23 }}>
-            <input type="password" required autoComplete="current-password" />
+            <input
+              name="password"
+              type="password"
+              required
+              autoComplete="current-password"
+              onChange={changeHandler}
+            />
             <label>Password</label>
             <i className="bx bxs-lock-alt bx-tada"></i>
           </div>
@@ -28,6 +40,7 @@ const LoginForm = ({ handleRegisterClick }) => {
             type="submit"
             className="btn animation"
             style={{ "--i": 3, "--j": 24 }}
+            onClick={loginHandler}
           >
             Login
           </button>
@@ -36,9 +49,9 @@ const LoginForm = ({ handleRegisterClick }) => {
             style={{ "--i": 4, "--j": 25 }}
           >
             <p>
-              Don't have an account?{" "}
+              Don&apos;t have an account?{" "}
               <Link
-                to="/register"
+                // to="/register"
                 className="register-link"
                 onClick={handleRegisterClick}
               >

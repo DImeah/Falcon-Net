@@ -1,8 +1,8 @@
 // Import the mongoose library
-import mongoose from "mongoose";
+import mongoose, { Schema, model } from "mongoose";
 
 // Define the schema for the chat model
-const chatSchema = mongoose.Schema(
+const chatSchema2 = mongoose.Schema(
   {
     // Name of the chat, trimmed to remove extra whitespaces
     chatName: { type: String, trim: true },
@@ -33,7 +33,32 @@ const chatSchema = mongoose.Schema(
 );
 
 // Create the Chat model based on the schema
-const Chat = mongoose.model("Chat", chatSchema);
+// const Chat = mongoose.model("Chat", chatSchema2);
 
 // Export the Chat model for use in other parts of the application
+// export default Chat;
+
+const chatSchema = mongoose.Schema({
+  receiver: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+  },
+  receiver: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+  },
+  messages: [
+    {
+      message: {
+        type: String,
+      },
+      createdAt: {
+        type: Date,
+        default: Date.now(),
+      },
+    },
+  ],
+});
+
+const Chat = model("Chat", chatSchema);
 export default Chat;

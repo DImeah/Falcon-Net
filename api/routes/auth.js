@@ -1,5 +1,6 @@
 import express from "express";
 import { registerUser, loginUser, logoutUser } from "../controller/auth.js";
+import { authMiddleware } from "../middlewares/authMiddleware.js";
 
 // Create an instance of the Express Router
 const router = express.Router();

@@ -1,7 +1,6 @@
 import generateToken from "../configs/jwtToken.js";
 import bcrypt from "bcrypt";
 import User from "../models/user.js";
-import mongoose from "mongoose";
 import "dotenv/config";
 
 const jwtSecretKey = process.env.JWT_SECRET_KEY;
@@ -31,17 +30,21 @@ export async function registerUser(req, res) {
       username,
       email,
       password: hashedPassword,
+      isActive: true,
     });
 
     // Save the user to the database
     const registeredUser = await newUser.save();
+    const token = await generateToken(registeredUser._id);
+    console.log(registeredUser, token);
     if (registeredUser) {
-      res.status(201).json({
+      res.cookies("token", token).status(201).json({
         _id: registeredUser._id,
         username: registeredUser.username,
         email: registeredUser.email,
         isAdmin: registeredUser.isAdmin,
-        token: generateToken(registeredUser._id),
+        isActive: registeredUser.isActive,
+        token,
       });
     } else {
       throw new Error("User registration authentication failed.");
@@ -73,13 +76,23 @@ export async function loginUser(req, res) {
 
     // Check if the user exists
     if (registeredUser && passwordMatch) {
-      res.status(201).json({
-        _id: registeredUser._id,
-        username: registeredUser.username,
-        email: registeredUser.email,
-        isAdmin: registeredUser.isAdmin,
-        token: generateToken(registeredUser._id),
-      });
+      registeredUser.isActive = true;
+      await registeredUser.save();
+      const token = await generateToken(registeredUser._id);
+      res
+        .cookie("token", token, {
+          secure: process.env.NODE_ENV === "production",
+          expires: new Date(Date.now() + 29393920020),
+        })
+        .status(201)
+        .json({
+          _id: registeredUser._id,
+          username: registeredUser.username,
+          email: registeredUser.email,
+          isAdmin: registeredUser.isAdmin,
+          isActive: registeredUser.isActive,
+          token: token,
+        });
     } else {
       throw new Error(
         "User Login authentication failed. Invalid username or password."
@@ -118,17 +131,17 @@ export async function loginUser(req, res) {
 
 export async function logoutUser(req, res) {
   try {
-    req.session.destroy();
+    console.log("Here");
+    // req.session.destroy();
     // Clear JWT token (if using JWT)
-    const token = req.cookies.token;
-    if (token) {
-      jwt.verify(token, jwtSecretKey, (err, decoded) => {
-        if (!err) {
-          // Token is valid, you may perform additional cleanup if needed
-          // For example, you can add the token to a blacklist
-        }
-      });
-    }
+    const { id } = req.body;
+    await User.findByIdAndUpdate(
+      id,
+      {
+        isActive: false,
+      },
+      { new: true }
+    );
 
     // Clear the token cookie
     res.clearCookie("token");

@@ -1,5 +1,5 @@
 // Import the mongoose library
-import mongoose from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
 // Define the schema for the user model
 const userSchema = new mongoose.Schema(
@@ -9,9 +9,15 @@ const userSchema = new mongoose.Schema(
 
     // Email field, required and must be unique
     email: { type: String, required: true, unique: true },
+    isActive: { type: Boolean, default: false },
 
     // Password field, required for user authentication
     password: { type: String, required: true },
+    friends: [
+      {
+        type: Schema.Types.ObjectId,
+      },
+    ],
   },
   { timestamps: true } // Automatically add createdAt and updatedAt fields
 );

@@ -1,9 +1,9 @@
+/* eslint-disable react/prop-types */
 // RegisterForm.jsx
-import React from "react";
 import { Link } from "react-router-dom";
 import "./login.css";
 
-const RegisterForm = ({ handleLoginClick }) => {
+const RegisterForm = ({ handleLoginClick, registerHandler, changeHandler }) => {
   return (
     <div className={`wrapper ${!handleLoginClick && "active"}`}>
       <span className="bg-animate"></span>
@@ -15,17 +15,32 @@ const RegisterForm = ({ handleLoginClick }) => {
         </h2>
         <form action="#">
           <div className="input-box animation" style={{ "--i": 18, "--j": 1 }}>
-            <input type="text" required />
+            <input
+              type="text"
+              required
+              name="username"
+              onChange={(e) => changeHandler(e)}
+            />
             <label>Username</label>
             <i className="bx bxs-user bx-tada"></i>
           </div>
           <div className="input-box animation" style={{ "--i": 19, "--j": 2 }}>
-            <input type="text" required />
+            <input
+              type="text"
+              required
+              name="email"
+              onChange={(e) => changeHandler(e)}
+            />
             <label>Email</label>
             <i className="bx bxs-envelope bx-tada"></i>
           </div>
           <div className="input-box animation" style={{ "--i": 20, "--j": 3 }}>
-            <input type="password" required />
+            <input
+              type="password"
+              required
+              name="password"
+              onChange={(e) => changeHandler(e)}
+            />
             <label>Password</label>
             <i className="bx bxs-lock-alt bx-tada"></i>
           </div>
@@ -33,6 +48,7 @@ const RegisterForm = ({ handleLoginClick }) => {
             type="submit"
             className="btn animation"
             style={{ "--i": 21, "--j": 4 }}
+            onClick={registerHandler}
           >
             Register
           </button>
@@ -43,7 +59,7 @@ const RegisterForm = ({ handleLoginClick }) => {
             <p>
               Already have an account?{" "}
               <Link
-                to="/login"
+                // to="/login"
                 className="login-link"
                 onClick={handleLoginClick}
               >
