@@ -139,7 +139,7 @@ const serverApp = async () => {
     if (connectDB()) {
       server.listen(port, () => {
         console.log(
-          `Server started at http://localhost:${port} and Connected to MongoDB Atlas Cloud`
+          `Server started at ${port} and Connected to MongoDB Atlas Cloud`
         );
       });
     }
