@@ -72,7 +72,6 @@ io.on("connection", async (socket) => {
   console.log(user, "connected");
   socket.on("getActiveUsers", async (userId) => {
     const users = await activeUsers(userId);
-    console.log(users);
     socket.emit("activeUsers", users);
   });
 
@@ -130,7 +129,7 @@ io.on("connection", async (socket) => {
 });
 
 // Start the application
-const serverApp = async () => {
+export const serverApp = async () => {
   try {
     // Connect to the MongoDB database
     await connectDB();
