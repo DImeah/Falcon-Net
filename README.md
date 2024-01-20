@@ -1,8 +1,9 @@
-Falcon Net - Chat Application
+# Falcon Net - Chat Application
 Falcon Net is a modern chat application built with the MERN stack, designed to facilitate fast and secure communication within an organization.
 
-Table of Contents
+# Table of Contents
 Falcon Net - Chat Application
+
 Table of Contents
 Getting Started
 Prerequisites
@@ -13,18 +14,19 @@ Built With
 Contributing
 License
 Acknowledgments
-Getting Started
-Prerequisites
+
+# Getting Started
+# Prerequisites
 Before setting up Falcon Net, ensure you have the following prerequisites installed on your machine:
 
 Node.js
 npm (Node Package Manager)
 MongoDB
-Installation
+
+# Installation
 Follow these steps to install and set up Falcon Net:
 
-bash
-Copy code
+
 # Clone the Falcon Net repository
 git clone https://github.com/your-username/falcon-net.git
 
