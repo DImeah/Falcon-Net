@@ -3,15 +3,14 @@ Falcon Net is a modern chat application built with the MERN stack, designed to f
 
 # Table of Contents
 Falcon Net - Chat Application
-
-Table of Contents
-Getting Started
-Prerequisites
-Installation
-Usage
-Features
-Built With
-Contributing
+1. Table of Contents
+2. Getting Started
+3. Prerequisites
+4. Installation
+5. Usage
+6. Features
+7. Built With
+8. Contributing
 License
 Acknowledgments
 
