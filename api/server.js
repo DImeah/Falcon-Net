@@ -148,4 +148,4 @@ export const serverApp = async () => {
 };
 
 // Call the function to start the application
-export const serverApp();
+serverApp();
