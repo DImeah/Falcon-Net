@@ -13,7 +13,7 @@ import RegisterForm from "./RegisterForm";
 import { Outlet } from "react-router-dom";
 import { Backdrop, Button, CircularProgress, TextField } from "@mui/material";
 // import axios from "axios";
-import "./Login.css";
+import "./login.css";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../features/authSlice";
 import useAuth from "../../hooks/useAuth";
