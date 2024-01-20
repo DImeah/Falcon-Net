@@ -1,6 +1,6 @@
 import io from "socket.io-client";
 
-const URL = "http://localhost:4000";
+const URL = "https://falcon-net.onrender.com";
 
 export const socketClient = (username) => {
   const socket = io(URL, {

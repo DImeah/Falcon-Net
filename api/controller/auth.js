@@ -71,7 +71,7 @@ export async function loginUser(req, res) {
     // Compare the entered password with the hashed password in the database
     const passwordMatch = await bcrypt.compare(
       password,
-      registeredUser.password
+      registeredUser?.password
     );
 
     // Check if the user exists
