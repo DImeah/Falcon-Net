@@ -23,12 +23,28 @@ app.use(cookieParser());
 app.use(express.json()); // Parse JSON requests
 app.use(express.urlencoded({ extended: true })); // Parse URL-encoded requests
 app.use(morgan("tiny")); // Use Morgan for request logging
-app.use(
-  cors({
-    origin: [process.env.CLIENT_URL, "http://localhost:5173"],
-    methods: ["GET", "PUT", "POST", "DELETE", "OPTIONS"],
-  })
-); // Enable CORS for all routes
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://falcon-net.vercel.app",
+];
+// middleware
+app.use(function (req, res, next) {
+  const origin = req.headers.origin;
+
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader("Access-Control-Allow-Origin", origin);
+  }
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, POST, OPTIONS, PUT, PATCH, DELETE"
+  );
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "X-Requested-With,content-type, authorization"
+  );
+  res.setHeader("Access-Control-Allow-Credentials", true);
+  next();
+}); // Enable CORS for all routes
 
 // app.use(
 //   session({
