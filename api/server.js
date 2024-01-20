@@ -25,7 +25,7 @@ app.use(express.urlencoded({ extended: true })); // Parse URL-encoded requests
 app.use(morgan("tiny")); // Use Morgan for request logging
 app.use(
   cors({
-    origin: process.env.CLIENT_URL,
+    origin: [process.env.CLIENT_URL, "http://localhost:5173"],
     methods: ["GET", "PUT", "POST", "DELETE", "OPTIONS"],
   })
 ); // Enable CORS for all routes
@@ -148,4 +148,4 @@ export const serverApp = async () => {
 };
 
 // Call the function to start the application
-serverApp();
+export const serverApp();
