@@ -41,6 +41,7 @@ const App = () => {
   return (
     <div>
       <Routes>
+        <Route path="*" element={<Login />} />
         <Route path="/app" element={<MainContainer />}>
           <Route path="welcome" element={<Welcome />}></Route>
           <Route path="chat" element={<ChatArea />}></Route>
@@ -48,9 +49,9 @@ const App = () => {
           <Route path="create-groups" element={<CreateGroups />}></Route>
           <Route path="groups" element={<Groups />}></Route>
         </Route>
-        <Route path="/auth" element={<Login />} />
+
         {/* <Route path="/register" element={<Login />} /> */}
-        <Route path="*" element={<p>Not found</p>} />
+        {/* <Route path="*" element={<p>Not found</p>} /> */}
       </Routes>
     </div>
   );
